@@ -13,6 +13,14 @@ jobs:
       contents: read
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -21,6 +29,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script_stop: true
           script: |
+            export NVM_DIR=~/root/.nvm
+            source ~/.nvm/nvm.sh
             cd /home/react-spa-deploy
             ls -la
             git pull
