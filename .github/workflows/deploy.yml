@@ -37,3 +37,23 @@ jobs:
             npm install
             npm run build
             cp ./dist /var/www/html
+      - name: On Failure
+        if: failure()
+        uses: hunghg255/action-notifications@master
+        with:
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
+  notifification:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: hunghg255/action-notifications@master
+        if: always()
+        with:
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "React DEVELOPMENT"
+          description: "Test here: https://google.com"
