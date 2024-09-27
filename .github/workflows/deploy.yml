@@ -23,3 +23,7 @@ jobs:
           script: |
             cd /home/react-spa-deploy
             ls -la
+            git pull
+            npm install
+            npm run build
+            cp ./dist /var/www/html
