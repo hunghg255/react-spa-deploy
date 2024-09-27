@@ -32,7 +32,7 @@ jobs:
             git pull
             npm install
             npm run build
-            cp ./dist /var/www/html
+            cp -r ./dist /var/www/html
       - name: On Failure
         if: failure()
         uses: hunghg255/action-notifications@master
